@@ -15,6 +15,9 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Tamim Chowdhury | Portfolio",
   description: "Senior Creative Technologist, Full Stack Developer & ML Engineer",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

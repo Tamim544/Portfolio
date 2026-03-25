@@ -30,12 +30,16 @@ const TECH_STACK = [
 ];
 
 function InteractiveSphere({ position, name, color, ...props }: any) {
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 15; // Rough estimate for mobile in world units
+  const radius = isMobile ? 0.75 : 1.1;
+
   const [ref, api] = useSphere(() => ({
     mass: 1,
     position,
-    args: [1],
-    linearDamping: 0.8,    // High damping for fluid look
-    angularDamping: 0.8,   // High damping for rotation stability
+    args: [radius],
+    linearDamping: 0.85,
+    angularDamping: 0.85,
     ...props,
   }));
 
@@ -79,21 +83,22 @@ function InteractiveSphere({ position, name, color, ...props }: any) {
 
   return (
     <mesh ref={ref as any} castShadow>
-      <sphereGeometry args={[1, 32, 32]} />
+      <sphereGeometry args={[radius, 32, 32]} />
       <MeshDistortMaterial
         color={color}
-        speed={2}
-        distort={0.3}
-        radius={1}
-        metalness={0.8}
-        roughness={0.2}
+        speed={1.5}
+        distort={0.4}
+        radius={radius}
+        metalness={0.9}
+        roughness={0.1}
       />
       <Text
-        position={[0, 0, 1.1]}
-        fontSize={0.3}
+        position={[0, 0, radius + 0.1]}
+        fontSize={isMobile ? 0.25 : 0.4}
         color="white"
         anchorX="center"
         anchorY="middle"
+        font="/fonts/SpaceGrotesk-Bold.ttf" // Optional but helpful
       >
         {name}
       </Text>
@@ -112,11 +117,11 @@ function Borders() {
 
 export default function TechStackSpheres() {
   return (
-    <div className="w-full h-[500px] relative bg-slate-950/20 rounded-3xl overflow-hidden border border-white/5">
+    <div className="w-full h-[600px] md:h-[500px] relative bg-slate-950/20 rounded-3xl overflow-hidden border border-white/5">
       <Canvas
         shadows
-        gl={{ antialias: true }}
-        camera={{ position: [0, 0, 15], fov: 35 }}
+        gl={{ antialias: true, alpha: true }}
+        camera={{ position: [0, 0, 20], fov: 35 }}
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} castShadow />
@@ -149,7 +154,7 @@ export default function TechStackSpheres() {
         </Suspense>
       </Canvas>
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-        <div className="text-white/10 text-8xl font-black uppercase tracking-tighter opacity-20 select-none">
+        <div className="text-white/10 text-6xl md:text-8xl font-black uppercase tracking-tighter opacity-10 select-none text-center px-4">
           TECH STACK
         </div>
       </div>

@@ -275,16 +275,9 @@ export default function Hero() {
   const { scrollYProgress } = useScroll();
   
   // Vanish effect as we scroll down: fade out and slightly scale up
-  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.4], [1, 1.1]);
-  
-  // Only apply blur on desktop to prevent mobile performance lag
-  const filter = useTransform(
-    scrollYProgress, 
-    [0, 0.4], 
-    ["blur(0px)", "blur(10px)"],
-    { clamp: true }
-  );
+  // Removed Blur filter to fix performance lag/stutter
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 1.05]);
 
   const [isMobile, setIsMobile] = React.useState(false);
   React.useEffect(() => {
@@ -314,7 +307,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 lg:pt-0 overflow-hidden">
       <motion.div 
-        style={{ opacity, scale, filter: isMobile ? "none" : filter }}
+        style={{ opacity, scale }}
         className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10 w-full h-full"
       >
 

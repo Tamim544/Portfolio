@@ -71,14 +71,13 @@ export default function About() {
     offset: ["start start", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0.6, 0.9], [1, 1.1]);
-  const filter = useTransform(scrollYProgress, [0.6, 0.9], ["blur(0px)", "blur(20px)"]);
+  const opacity = useTransform(scrollYProgress, [0.7, 0.95], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0.7, 0.95], [1, 1.05]);
 
   return (
     <section id="about" ref={containerRef} className="py-20 relative overflow-hidden bg-slate-950/50">
       <motion.div 
-        style={{ opacity, scale, filter }}
+        style={{ opacity, scale }}
         className="container mx-auto px-6"
       >
         <motion.div 

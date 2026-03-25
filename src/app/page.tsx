@@ -90,13 +90,19 @@ export default function Home() {
               Open for collaborations in Full Stack Development, ML Research, and Creative Technology.
             </p>
             <div className="flex gap-6">
-              {["github", "linkedin", "twitter"].map((social) => (
+              {[
+                { name: "github", url: "https://github.com/Tamim544" },
+                { name: "linkedin", url: "https://www.linkedin.com/in/tamim-chowdhury-546a47262" },
+                { name: "instagram", url: "https://www.instagram.com/tamimzenith" }
+              ].map((social) => (
                 <a
-                  key={social}
-                  href={`#${social}`}
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors capitalize transition-transform hover:-translate-y-1"
                 >
-                  {social}
+                  {social.name}
                 </a>
               ))}
             </div>

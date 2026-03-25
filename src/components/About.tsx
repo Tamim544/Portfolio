@@ -33,7 +33,7 @@ const TIMELINE_DATA = [
 
 const TimelineItem = ({ item, index }: { item: typeof TIMELINE_DATA[0], index: number }) => {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -41,7 +41,7 @@ const TimelineItem = ({ item, index }: { item: typeof TIMELINE_DATA[0], index: n
       className={`relative flex items-center justify-between mb-8 w-full ${index % 2 === 0 ? "flex-row-reverse" : ""}`}
     >
       <div className="hidden md:block w-5/12" />
-      
+
       <div className="z-20 flex items-center order-1 bg-slate-900 border border-white/10 shadow-xl w-10 h-10 rounded-full justify-center">
         {item.icon}
       </div>
@@ -71,16 +71,17 @@ export default function About() {
     offset: ["start start", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0.7, 0.95], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0.7, 0.95], [1, 1.05]);
+  const opacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0.6, 0.9], [1, 1.1]);
+  const filter = useTransform(scrollYProgress, [0.6, 0.9], ["blur(0px)", "blur(20px)"]);
 
   return (
     <section id="about" ref={containerRef} className="py-20 relative overflow-hidden bg-slate-950/50">
-      <motion.div 
-        style={{ opacity, scale }}
+      <motion.div
+        style={{ opacity, scale, filter }}
         className="container mx-auto px-6"
       >
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
@@ -97,7 +98,7 @@ export default function About() {
 
         <div className="relative wrap overflow-hidden p-0 h-full">
           <div className="absolute border-opacity-20 border-white h-full border left-1/2 hidden md:block" />
-          
+
           {TIMELINE_DATA.map((item, i) => (
             <TimelineItem key={i} item={item} index={i} />
           ))}
